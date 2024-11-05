@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>File Upload and Content Display</title>
+  </head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.9.359/pdf.min.js"></script>
+
+  <body>
+    <h1>Upload File to Display Content</h1>
+    <input type="file" id="fileInput" accept=".txt,.pdf,.docx" />
+    <div id="fileContent"></div>
+
+    <script>
+      // fileReader.js
+      document
+        .getElementById("fileInput")
+        .addEventListener("change", handleFileUpload);
+
+      function handleFileUpload(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        const fileType = file.type;
+
+        if (fileType === "text/plain") {
+          // For txt file
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            const content = e.target.result;
+            displayContent(content);
+          };
+          reader.readAsText(file);
+        } else if (fileType === "application/pdf") {
+          // For pdf files, use PDF.js
+          readPDF(file);
+        } else if (
+          fileType ===
+          "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+        ) {
+          // For docx files, use docx.js
+          readDocx(file);
+        } else {
+          alert("Unsupported file type");
+        }
+      }
+
+      function displayContent(content) {
+        const contentDiv = document.getElementById("fileContent");
+        contentDiv.innerText = content;
+      }
+
+      // For PDF files (using PDF.js)
+      async function readPDF(file) {
+        const pdfjsLib = window["pdfjs-dist/build/pdf"];
+        const fileReader = new FileReader();
+
+        fileReader.onload = async function (e) {
+          const typedArray = new Uint8Array(e.target.result);
+          const pdf = await pdfjsLib.getDocument(typedArray).promise;
+          const page = await pdf.getPage(1);
+          const textContent = await page.getTextContent();
+          let text = "";
+
+          textContent.items.forEach((item) => {
+            text += item.str + " ";
+          });
+
+          displayContent(text);
+        };
+
+        fileReader.readAsArrayBuffer(file);
+      }
+
+      // For DOCX files (using docx.js)
+      function readDocx(file) {
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+          const arrayBuffer = e.target.result;
+          const zip = new JSZip();
+          zip
+            .loadAsync(arrayBuffer)
+            .then(function (contents) {
+              return zip.file("word/document.xml").async("text");
+            })
+            .then(function (text) {
+              const doc = new DOMParser().parseFromString(
+                text,
+                "application/xml"
+              );
+              const paragraphs = doc.getElementsByTagName("w:t");
+              let content = "";
+
+              for (let i = 0; i < paragraphs.length; i++) {
+                content += paragraphs[i].textContent + " ";
+              }
+
+              displayContent(content);
+            });
+        };
+
+        reader.readAsArrayBuffer(file);
+      }
+    </script>
+  </body>
+</html>

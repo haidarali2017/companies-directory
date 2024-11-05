@@ -1,0 +1,52 @@
+/* https://proto.io/freebies/onoff/ */
+.onoffswitch {
+    position: relative; width: 76px;
+    -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
+}
+li .onoffswitch {
+    width: 80px;
+}
+.onoffswitch-checkbox {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+.onoffswitch-label {
+    display: block; overflow: hidden; cursor: pointer;
+    border: 2px solid #FFFFFF; border-radius: 45px;
+}
+.onoffswitch-inner {
+    display: block; width: 200%; margin-left: -100%;
+    transition: margin 0.3s ease-in 0s !important;
+}
+.onoffswitch-inner:before, .onoffswitch-inner:after {
+    display: block; float: left; width: 50%; height: 45px; padding: 0; line-height: 45px;
+    font-size: 10px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: bold;
+    box-sizing: border-box;
+}
+.onoffswitch-inner:before {
+    content: "";
+    padding-left: 5px;
+    background-color: #12CD65; color: #FFFFFF;
+}
+.onoffswitch-inner:after {
+    content: "";
+    padding-right: 5px;
+    /* background-color: #EEEEEE; color: #999999; */
+		background-color: #ffcbcb; color: #999999;
+    text-align: right;
+}
+.onoffswitch-switch {
+    display: block; width: 41px; margin: 4px;
+    background: #FFFFFF;
+    position: absolute; top: 0; bottom: 0;
+    right: 27px;
+    border: 2px solid #FFFFFF; border-radius: 20px;
+    transition: all 0.3s ease-in 0s !important; 
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+    margin-left: 0;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
+    right: 0px; 
+}

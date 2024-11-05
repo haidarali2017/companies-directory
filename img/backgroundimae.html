@@ -1,0 +1,73 @@
+<div id="background-container">
+  <div id="content">
+    <!-- Your inner content here -->
+    <p>
+      27 This answer is similar to others, but is overall the best for most
+      applications. You need to know the image size before hand which you
+      usually do. This will let you add overlay text, titles etc. with no
+      negative padding or absolute positioning of the image. They key is to set
+      the padding % to match the image aspect ratio as seen in the example
+      below. I used this answer and essentially just added an image background..
+    </p>
+    <div class="custom-margin-bottom">
+      <div class="custom-body-whole">
+        <div class="project-header">
+          One Click to Connect with World-Class Projects
+        </div>
+        <div class="project-body">
+          Our AI-powered platform delivers precise, global matches, instantly
+          connecting you with the top 3 providers—or more.<br />
+          <br />
+          Global Reach in all Countries: Engage directly with 10,000+ leaders,
+          from government officials like Prime Ministers and Ambassadors to
+          Fortune 500/2000 CEOs and board members of the world’s leading
+          corporations.
+        </div>
+      </div>
+      <div class="custom-margin-bottom">
+        <div class="custom-body-whole">
+          <div class="project-header">
+            One Click to Connect with World-Class Projects
+          </div>
+          <div class="project-body">
+            Our AI-powered platform delivers precise, global matches, instantly
+            connecting you with the top 3 providers—or more.<br />
+            <br />
+            Global Reach in all Countries: Engage directly with 10,000+ leaders,
+            from government officials like Prime Ministers and Ambassadors to
+            Fortune 500/2000 CEOs and board members of the world’s leading
+            corporations.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    #background-container {
+      background-image: url("cloud-image.avif");
+      background-size: cover;
+      background-repeat: no-repeat;
+      width: 100%;
+      /* Initial height set to auto */
+    }
+
+    #content {
+      padding: 20px;
+    }
+  </style>
+
+  <script>
+    function adjustBackgroundHeight() {
+      const backgroundContainer = document.getElementById(
+        "background-container"
+      );
+      const content = document.getElementById("content");
+      backgroundContainer.style.height = `${content.scrollHeight}px`;
+    }
+
+    // Call the function initially and on window resize to adjust height dynamically
+    adjustBackgroundHeight();
+    window.addEventListener("resize", adjustBackgroundHeight);
+  </script>
+</div>

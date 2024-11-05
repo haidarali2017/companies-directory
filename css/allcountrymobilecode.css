@@ -1,0 +1,150 @@
+:root {
+  --primary: #111;
+  --secondary: #fd0;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+  background-color: var(--secondary);
+}
+
+.select-box {
+  position: relative;
+}
+
+.select-box input {
+  width: 100%;
+  padding: 1rem 0.6rem;
+  font-size: 1.1rem;
+
+  border: 0.1rem solid transparent;
+  outline: none;
+}
+
+input[type="tel"] {
+  border-radius: 0 0.5rem 0.5rem 0;
+}
+
+.select-box input:focus {
+  border: 0.1rem solid var(--primary);
+}
+
+.selected-option {
+  background-color: #eee;
+  border-radius: 0.5rem;
+  overflow: hidden;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 50px;
+}
+
+.selected-option div {
+  position: relative;
+  width: 50px;
+  padding: 0 2.8rem 0 0.5rem;
+  text-align: center;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.selected-option div::after {
+  position: absolute;
+  content: "";
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%) rotate(45deg);
+  width: 7px;
+  height: 7px;
+  border-right: 0.12rem solid var(--primary);
+  border-bottom: 0.12rem solid var(--primary);
+  transition: 0.2s;
+}
+
+.selected-option div.active::after {
+  transform: translateY(-50%) rotate(225deg);
+}
+
+.select-box .options {
+  position: absolute;
+  top: 4rem;
+
+  width: 100%;
+  background-color: #fff;
+  border-radius: 0.5rem;
+
+  display: none;
+  z-index: 1;
+}
+
+.select-box .options.active {
+  display: block;
+}
+
+.select-box .options::before {
+  position: absolute;
+  content: "";
+  left: 1rem;
+  top: -1.2rem;
+
+  width: 0;
+  height: 0;
+  border: 0.6rem solid transparent;
+  border-bottom-color: var(--primary);
+}
+
+input.search-box {
+  background-color: var(--primary);
+  color: #fff;
+  border-radius: 0.5rem 0.5rem 0 0;
+  padding: 1.4rem 1rem;
+}
+
+.select-box ol {
+  list-style: none;
+  max-height: 328px;
+  overflow: overlay;
+  border: 2px solid #2d262647;
+  border-radius: 15px;
+}
+
+.select-box ol::-webkit-scrollbar {
+  width: 0.6rem;
+}
+
+.select-box ol::-webkit-scrollbar-thumb {
+  width: 0.4rem;
+  height: 3rem;
+  background-color: #ccc;
+  border-radius: 0.4rem;
+}
+
+.select-box ol li {
+  padding: 11px 16px 11px 14px !important;
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+  height: 45px !important;
+  border-radius: 28px;
+  border: 2px solid #d3d3d3;
+  margin: 8px 2px;
+}
+
+.select-box ol li.hide {
+  display: none;
+}
+
+.select-box ol li:hover {
+  background-color: lightcyan;
+}
+
+.select-box ol li .country-name {
+  margin-left: 0.4rem;
+}
